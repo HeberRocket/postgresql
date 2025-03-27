@@ -1,0 +1,255 @@
+SELECT * FROM directors;
+
+SELECT first_name, last_name, nationality FROM directors;
+
+--Retrieving data with a where clause
+/*
+SELECT columname FROM tablename
+WHERE columname = 'value';
+*/
+
+SELECT * FROM movies 
+WHERE age_certification = '15';
+
+SELECT * FROM movies 
+WHERE age_certification = '15'
+AND movie_lang = 'Chinese';
+
+SELECT * FROM movies 
+WHERE movie_lang = 'English'
+AND age_certification = '15'
+AND director_id = '27';
+
+
+
+--***** USING LOGICAL OPERATORS ****
+
+
+SELECT * FROM movies;
+SELECT movie_name, movie_lenght FROM movies
+WHERE movie_lenght > 120;
+
+SELECT movie_name, movie_lenght FROM movies
+WHERE movie_lenght >= 120;
+
+SELECT movie_name, movie_lenght FROM movies
+WHERE movie_lenght < 120;
+
+SELECT movie_name, movie_lenght FROM movies
+WHERE movie_lenght <= 120;
+
+
+SELECT* FROM movies
+WHERE release_date > '1999-12-31';
+
+SELECT* FROM movies
+WHERE release_date < '1999-12-31';
+
+SELECT* FROM movies
+WHERE movie_lang > 'English';
+
+SELECT* FROM movies
+WHERE movie_lang >= 'English';
+
+SELECT* FROM movies
+WHERE movie_lang < 'English';
+
+--****CHALLENGE****
+
+SELECT movie_name, release_date FROM movies;
+
+SELECT first_name, last_name FROM directors
+WHERE nationality  = 'American';
+
+SELECT * FROM actors
+WHERE gender = 'M'
+AND date_of_birth > '1970-01-01';
+
+SELECT movie_name FROM movies
+WHERE movie_lenght > 90
+AND movie_lang = 'English';
+
+--****USING IN AND NOT IN ****
+
+SELECT first_name, last_name FROM actors
+WHERE first_name = 'Bruce';
+
+SELECT first_name, last_name FROM actors
+WHERE first_name IN ('Bruce', 'John');
+
+SELECT first_name, last_name FROM actors
+WHERE first_name IN ('Bruce', 'John', 'Peter');
+
+SELECT first_name, last_name FROM actors
+WHERE first_name NOT IN ('Bruce', 'John', 'Peter');
+
+SELECT actor_id, first_name, last_name FROM actors
+WHERE actor_id IN (2,3,4,5,6,8);
+
+SELECT actor_id, first_name, last_name FROM actors
+WHERE actor_id NOT IN (2,3,4,5,6,8);
+
+
+--****USING LIKE WITH % AND _  ****
+
+SELECT * FROM actors 
+WHERE first_name LIKE 'P%';
+
+SELECT * FROM actors 
+WHERE first_name LIKE 'Pe_';
+
+SELECT * FROM actors 
+WHERE first_name LIKE '%r%';
+
+
+SELECT * FROM actors 
+WHERE first_name LIKE '__rl__';
+
+
+--**** SELECTING DATA  WHERE A COLUMN IS BETWEEN 2 VALUES ****
+
+SELECT * FROM movies;
+
+SELECT movie_name, release_date FROM movies
+WHERE release_date BETWEEN '1995-01-01' AND '1999-12-31';
+
+SELECT movie_name, movie_lenght FROM movies
+WHERE movie_lenght BETWEEN 90 AND 120;
+
+SELECT movie_name, movie_lang FROM movies
+WHERE movie_lang BETWEEN 'E' AND 'Portuguese';
+
+
+--**** CHALLENGE ****
+
+SELECT movie_name, movie_lang FROM movies
+WHERE movie_lang IN ('English','Spanish','Korean');
+
+SELECT first_name, last_name FROM actors
+WHERE last_name LIKE 'M%'
+AND date_of_birth BETWEEN '1940-01-01' AND '1969-12-31';
+
+
+SELECT first_name, last_name FROM directors
+WHERE nationality IN ('British','French','German')
+AND date_of_birth BETWEEN '1950-01-01' AND '1980-12-31';
+
+
+--**** ORDERING THE RESULTS RETURNED ****
+
+SELECT * FROM actors;
+
+SELECT first_name, last_name, date_of_birth FROM actors
+ORDER BY first_name;
+
+SELECT actor_id, first_name, last_name, date_of_birth FROM actors
+ORDER BY actor_id;
+
+SELECT actor_id, first_name, last_name, date_of_birth FROM actors
+ORDER BY actor_id DESC;
+
+SELECT actor_id, first_name, last_name, date_of_birth FROM actors
+ORDER BY date_of_birth DESC;
+
+SELECT actor_id, first_name, last_name, date_of_birth FROM actors
+WHERE gender = 'F'
+ORDER BY date_of_birth DESC;
+
+--**** LIMITING THE NUMBER OF RECORD RETURNED ****
+
+SELECT * FROM movie_revenues;
+
+SELECT * FROM movie_revenues
+ORDER BY domestic_takings
+LIMIT 5;
+
+SELECT * FROM movie_revenues
+ORDER BY revenue_id
+LIMIT 5 OFFSET 3;
+
+
+--**** USING FETCH ****
+
+SELECT movie_id, movie_name FROM movies
+FETCH FIRST 10 ROW ONLY;
+
+
+SELECT movie_id, movie_name FROM movies
+OFFSET 8 ROWS	
+FETCH FIRST 10 ROW ONLY;
+
+--**** DISTINCT VALUES ****
+
+SELECT DISTINCT * FROM movies
+ORDER BY movie_lang;
+
+
+--**** CHALLENGE ****
+
+SELECT * FROM directors
+WHERE nationality = 'American'
+ORDER BY date_of_birth;
+
+SELECT DISTINCT nationality FROM directors;
+
+SELECT first_name, last_name, date_of_birth FROM actors
+WHERE gender = 'F'
+ORDER BY date_of_birth DESC
+LIMIT 10;
+
+
+--**** DEALING WITH NULL VALUES ****
+
+SELECT * FROM actors;
+
+SELECT * FROM actors
+WHERE date_of_birth IS NOT NULL;
+
+SELECT * FROM movie_revenues
+WHERE domestic_takings IS NOT NULL	
+ORDER BY domestic_takings DESC;
+
+SELECT * FROM movie_revenues
+WHERE international_takings IS NULL;
+
+--****SETTING A COLUMN NAME ALIAS ****
+
+SELECT last_name AS Apellidos FROM directors;
+
+
+SELECT last_name AS Surname FROM directors
+WHERE last_name = 'Anderson';
+
+SELECT last_name AS Surname FROM directors
+WHERE last_name LIKE 'A%'	
+ORDER BY surname;
+
+
+SELECT * FROM directors; 
+
+
+--**** USING CONCATENATE ****
+
+SELECT 'concat' || 'together' AS new_string;
+
+SELECT 'concat' ||' '|| 'together' AS new_string;
+
+SELECT CONCAT(first_name, last_name) AS full_name FROM actors;
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM actors;
+
+SELECT CONCAT_WS(' ', first_name, last_name, date_of_birth) AS full_name FROM actors;
+
+
+--**** CHALLENGE ****
+
+SELECT * FROM movie_revenues
+WHERE international_takings  IS NOT NULL
+ORDER BY international_takings DESC
+LIMIT 3;
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM directors;
+
+SELECT * FROM actors
+WHERE first_name IS NULL
+OR date_of_birth IS NULL;
