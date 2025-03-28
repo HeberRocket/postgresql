@@ -1,0 +1,116 @@
+
+--*****************************************************
+--     STRINGS FUNCTIONS
+--*****************************************************
+
+-- UPPER AND LOWER FUNCTIONS
+
+
+SELECT UPPER('stop shouting');
+
+SELECT first_name, UPPER(last_name) AS last_name FROM actors;
+
+
+SELECT * FROM actors;
+
+SELECT LOWER('StOP SHoutiNG');
+
+SELECT LOWER(movie_name) FROM movies;
+
+SELECT movie_name FROM movies;
+
+-- INITCAP STRING FUNCTION
+
+SELECT INITCAP('eXamplE sTRING');
+
+SELECT movie_name FROM movies;
+
+SELECT INITCAP(movie_name) FROM movies;
+
+-- LEFT AND RIGHT STRING FUNCTIONS
+
+SELECT LEFT('string', 3);
+
+SELECT LEFT(movie_name, 5) FROM movies;
+
+SELECT RIGHT('example', 2);
+
+SELECT RIGHT(first_name, 2) FROM actors;
+
+SELECT * FROM actors;
+
+-- REVERSE FUNCTION
+
+SELECT REVERSE('reverse');
+
+SELECT movie_name, REVERSE(movie_name) FROM movies;
+
+
+--****  CHALLENGE ****
+
+SELECT UPPER(d.first_name), UPPER(d.last_name), UPPER(m.movie_name) FROM
+directors d
+JOIN movies m ON d.director_id = m.director_id;
+
+
+SELECT DISTINCT INITCAP(a.first_name), INITCAP(a.last_name) FROM actors a
+JOIN movies_actors ma ON a.actor_id = ma.actor_id
+JOIN movies m ON m.movie_id = ma.movie_id
+WHERE m.movie_lang IN ('Chinese','Korean');
+
+SELECT REVERSE(first_name), REVERSE(last_name), LEFT(nationality, 3) FROM directors;
+
+SELECT CONCAT_WS('.',LEFT(first_name, 1),LEFT(last_name, 1)) AS initials, first_name,
+last_name
+FROM directors;
+
+-- SUBSTRING FUNCTION
+
+SELECT SUBSTRING('long string', 5, 3);
+
+SELECT first_name, SUBSTRING(first_name, 3, 4) FROM actors;
+
+-- REPLACE FUNCTION
+
+SELECT REPLACE('a cat plays with another cat', 'cat', 'dog');
+
+SELECT * FROM actors;
+
+SELECT first_name, last_name, REPLACE(gender, 'M', 'Male') FROM actors;
+
+SELECT * FROM directors;
+
+UPDATE directors
+SET nationality = REPLACE(nationality, 'Brit', 'Engl')
+WHERE nationality = 'British';
+
+-- SPLIT_PART FUNCTION
+
+SELECT SPLIT_PART('first_name.last_name@gmail.com', '.', 3);
+
+SELECT movie_name, SPLIT_PART(movie_name, ' ', 1) AS first_word,
+SPLIT_PART(movie_name, ' ', 2) AS second_word
+FROM movies;
+
+-- Using Casting to apply String Functions to Non String Data Types
+
+SELECT * FROM directors;
+
+SELECT date_of_birth::TEXT FROM directors;
+
+SELECT SPLIT_PART(date_of_birth::TEXT, '-', 1) FROM directors;
+
+-- **** CHALLENGE ****
+
+SELECT SUBSTRING(movie_name, 1, 6) AS movie_name, SUBSTRING(release_date::TEXT,
+1, 4) AS year
+FROM movies;
+
+SELECT SUBSTRING(first_name, 1, 1) AS fn_initial, last_name, date_of_birth FROM actors
+WHERE SPLIT_PART(date_of_birth::TEXT, '-', 2) = '05';
+
+UPDATE movies
+SET movie_lang = REPLACE(movie_lang, 'English', 'Eng')
+WHERE age_certification = '18';
+
+SELECT * FROM movies;

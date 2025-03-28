@@ -1,0 +1,129 @@
+
+--*****************************************************
+--MODULE 6 Counting and grouping data
+--*****************************************************
+
+SELECT COUNT (*) FROM movie_revenues;
+
+SELECT COUNT (international_takings) FROM movie_revenues;
+
+SELECT COUNT (*) FROM movies
+WHERE movie_lang ='English';
+
+---**** AGREGATE FINCTION: SUM ****
+
+SELECT SUM(domestic_takings) FROM movie_revenues;
+
+SELECT SUM(domestic_takings) FROM movie_revenues
+WHERE domestic_takings > 100.0;
+
+SELECT SUM(movie_lenght) FROM movies
+WHERE movie_lang = 'Chinese';
+
+--**** MIN AND MAX ****
+
+SELECT * FROM 
+SELECT MAX(movie_lenght) FROM movies;
+SELECT MIN (movie_lenght) FROM movies;
+
+SELECT MIN (movie_lenght) FROM movies
+WHERE movie_lang = 'Japanese';
+
+SELECT MAX (release_date) FROM movies;
+SELECT MIN (release_date) FROM movies;
+
+SELECT MAX (movie_name) FROM movies;
+SELECT MIN (movie_name) FROM movies;
+
+--- **** AVG ****
+
+SELECT AVG(movie_lenght) FROM movies;
+
+SELECT AVG(movie_lenght) FROM movies
+WHERE age_certification = '18';
+
+---**** CHALLENGE ****
+
+SELECT COUNT(*) FROM actors
+WHERE date_of_birth > '1970-01-01';
+
+SELECT MAX (domestic_takings) FROM movie_revenues;
+SELECT MIN (domestic_takings) FROM movie_revenues;
+
+SELECT SUM (movie_length) FROM movies
+WHERE age_certificate = '15';
+
+SELECT COUNT(*) FROM directors
+WHERE nationality = 'Japanese';
+
+SELECT AVG (movie_lenght) FROM movies
+WHERE movie_lang = 'Chinese';
+
+
+-- **** GROUPING DATA ****
+SELECT COUNT (movie_lang) FROM movies;
+
+SELECT movie_lang, COUNT (movie_lang) FROM movies
+GROUP BY movie_lang;
+
+SELECT movie_lang, AVG(movie_lenght) FROM movies
+GROUP BY movie_lang;
+
+SELECT movie_lang, age_certification, AVG(movie_lenght) FROM movies
+GROUP BY movie_lang, age_certification;
+
+SELECT movie_lang, age_certification, AVG(movie_lenght) FROM movies
+WHERE movie_lenght > 120
+GROUP BY movie_lang, age_certification;
+
+SELECT movie_lang,  MIN(movie_lenght), MAX(movie_lenght) FROM movies
+WHERE age_certification = '15'
+GROUP BY movie_lang;
+
+
+--**** HAVING CLAUSES
+
+SELECT movie_lang, COUNT(movie_lang) FROM movies
+GROUP BY movie_lang;
+
+SELECT movie_lang, COUNT(movie_lang) FROM movies
+GROUP BY movie_lang
+HAVING COUNT (movie_lang) > 1;
+
+SELECT movie_lang, COUNT(movie_lang) FROM movies
+WHERE movie_lenght > 120	
+GROUP BY movie_lang
+HAVING COUNT (movie_lang) > 1;
+
+
+---**** CHALLENGE ****
+
+SELECT nationality, COUNT(nationality) FROM directors
+GROUP BY nationality;
+
+SELECT movie_lang, age_certification, SUM(movie_lenght) FROM movies
+GROUP BY movie_lang, age_certification
+ORDER BY movie_lang, age_certification;
+
+SELECT movie_lang, SUM(movie_lenght) FROM movies
+GROUP BY movie_lang
+HAVING SUM(movie_lenght) > 500;
+
+-- **** MATHEMATICAL OPERATORSC ****
+
+SELECT 5 + 6 AS addition;
+SELECT 8-3 AS subtraction;
+SELECT 35/3 AS division;
+SELECT 4*6 AS Multiplication;
+
+SELECT 8 & 2 AS modulus;
+
+SELECT movie_id, (domestic_takings + international_takings) AS total_takings FROM movie_revenues;
+
+
+
+
+
+
+
+
